@@ -10,46 +10,43 @@ user_route = Blueprint('user', __name__,
 
 
 @user_route.route('/user/home/')
-def home():
+def user_home(user_id):
     """
-        This is the language awesomeness API 2
-        Call this api passing a language name and get back its features
+        用户信息页面
         ---
         tags:
-          - Awesomeness Language API
+          - 用户信息页面api
         parameters:
-          - name: language2
-            in: path
-            type: string
-            required: true
-            description: The language name
-          - name: size
+          - name: user_id
             in: query
-            type: integer
-            description: size of awesomeness
+            type: String
+            description: 用户Id
         responses:
           500:
             description: Error The language is not awesome!
           200:
-            description: A language with its awesomeness
+            description: 返回页面
             schema:
-              id: awesome
+              id: 123
               properties:
-                language:
+                mesasge:
                   type: string
-                  description: The language name
-                  default: Lua
-                features:
-                  type: array
-                  description: The awesomeness list
-                  items:
-                    type: string
-                  default: ["perfect", "simple", "lovely"]
+                  description: yyy
+                  default: xxx
         """
-    return "home"
-    pass
+    return "user_home"
 
 
 @user_route.route('/user/setting/')
 def setting():
-    pass
+    return "setting"
+
+
+@user_route.route('/user/register/')
+def register():
+    return "register"
+
+
+@user_route.route('/user/login/')
+def login():
+    return "login"

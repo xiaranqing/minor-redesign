@@ -1,0 +1,14 @@
+CREATE TABLE `article` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(11) DEFAULT NULL,
+  `origin_url` varchar(128) DEFAULT NULL,
+  `cover_img_url` varchar(128) DEFAULT NULL,
+  `tag_list` varchar(256) DEFAULT NULL,
+  `weight` int(4) DEFAULT NULL,
+  `content` text,
+  `author_list` varchar(256) DEFAULT NULL,
+  `publish_time` varchar(32) DEFAULT NULL,
+  `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

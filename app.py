@@ -5,13 +5,14 @@ from flasgger import Swagger
 from pip._vendor.urllib3 import request
 
 import config
-from controller import user_controller
+from controller import user_controller, discovery_controller, editor_controller
 
 app = Flask(__name__)
 app.register_blueprint(user_controller.user_route)
+app.register_blueprint(discovery_controller.discovery_route)
+app.register_blueprint(editor_controller.editor_route)
 
 app.config.from_object(config)
-
 swagger_config = Swagger.DEFAULT_CONFIG
 swagger_config['title'] = ""    # 配置大标题
 swagger_config['description'] = ""    # 配置公共描述内容

@@ -1,0 +1,15 @@
+### 目录结构
+- controller对应mvc模型的view，对应接口层，开放http接口给前端
+- service实际的业务逻辑
+- model数据层
+
+### 启动
+- 1 创建虚拟环境venv，python3.6
+- 2 安装依赖
+```
+pip3 install -r requirements.txt
+```
+- 3 启动
+```
+python app.py
+```
