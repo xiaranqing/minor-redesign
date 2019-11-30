@@ -1,0 +1,11 @@
+# idea
+.idea
+
+# env
+venv
+
+# log
+log
+
+# cache
+__pycache__
