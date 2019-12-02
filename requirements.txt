@@ -11,3 +11,4 @@ mistune==0.8.4
 PyYAML==5.1.2
 six==1.13.0
 Werkzeug==0.16.0
+pymongo==3.5.1
