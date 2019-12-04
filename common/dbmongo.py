@@ -15,11 +15,14 @@ from urllib.parse import quote_plus
 
 import pymongo
 
+from common.logger import logger
+
 
 class MongoDBHelper(object):
     """
         mongoDb
     """
+
     def __init__(self, host, user, password, db, port=27017):
 
         self.__uri = "mongodb://%s:%s@%s" % (
@@ -46,3 +49,6 @@ class MongoDBHelper(object):
 
         # return True 保证失败不会影响到下一步
         return False
+
+
+local_mongodb = MongoDBHelper(host="127.0.0.1", user="writer", password="pwdwriter")

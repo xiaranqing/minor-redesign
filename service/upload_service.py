@@ -51,5 +51,3 @@ class ToutiaoArticleUpload(ArticleUpload):
 
     def __storage(self):
         pass
-
-

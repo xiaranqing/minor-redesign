@@ -1,4 +1,3 @@
-
 import os
 
 VERSION_CODE = 1
@@ -12,7 +11,10 @@ LOG_PATH = ROOT_PATH + '/log/api'
 if not os.path.exists(LOG_PATH):
     os.makedirs(LOG_PATH)
 
+MONGO_HOST = "127.0.0.1"
+MONGO_USER = "writer"
+MONGO_PWD = "writerpwd"
+MONGO_PORT = 27017
 
 if __name__ == '__main__':
     pass
-

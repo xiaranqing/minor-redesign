@@ -2,24 +2,37 @@
 '''
 文章编辑接口
 '''
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, request
 
 from service import editor_service
 
-editor_route = Blueprint('discovery', __name__,
-                         template_folder='templates')
+editor_route = Blueprint('editor', __name__,
+                         template_folder='templates', url_prefix="/editor")
 
 
-@editor_route.route('/editor/tag/')
-def edit_tag(article_id, tag_list):
-    article = editor_service.find(article_id)
-    article.tag_list = tag_list
-    editor_service.update(article)
+@editor_route.route('/weight/')
+def edit_weight(user_id, article_id, weight):
+    print(locals())
 
 
-@editor_route.route('/editor/weight/')
-def edit_weight(article_id, weight):
-    article = editor_service.find(article_id)
-    article.weight = weight
-    editor_service.update(article)
+@editor_route.route('/title/', methods=['GET', 'POST'])
+def edit_title():
+    data = request.form
+    user_id = request.args.get("user_id")
+    article_id = request.args.get("article_id")
+    title = request.args.get("title")
 
+    print(locals())
+    return ''
+
+
+@editor_route.route('/content/')
+def edit_content(user_id, article_id, title):
+    print(locals())
+    return ''
+
+
+@editor_route.route('/tags/')
+def edit_tags(user_id, article_id, tags):
+    print(locals())
+    return ''
