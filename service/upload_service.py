@@ -1,6 +1,10 @@
 # coding:utf-8
 from urllib.parse import urlparse
 
+from pip._vendor import requests
+
+from model.article import Article
+
 
 class ArticleUpload(object):
     url = ""
@@ -34,6 +38,9 @@ class WeiXinArticleUpload(ArticleUpload):
 
 
 class ToutiaoArticleUpload(ArticleUpload):
+    TITLE_XPATH = ""
+    AUTHOR_XPATH = ""
+    CONTENT_XPATH = ""
 
     def __init__(self, article_url, article_content=None):
         self.article_url = article_url
@@ -45,9 +52,29 @@ class ToutiaoArticleUpload(ArticleUpload):
         self.path = url_info.path  # /a123456
 
     def extract(self):
-        # todo
-        #
-        pass
+        article_json = self.__crawler()
 
-    def __storage(self):
+        article = Article(article_json)
+
+        self.__storage(article)
+
+        return article
+
+    def __crawler(self):
+        # todo: 增加爬虫脚本
+        extract_json = dict()
+        res = requests.post(self.article_url)
+
+        if (res.status != 200):
+            pass
+
+        extract_json["title"] = res.content.xpath(self.TITLE_XPATH)
+        extract_json["author"] = res.content.xpath(self.AUTHOR_XPATH)
+        extract_json["content"] = res.content.xpath(self.CONTENT_XPATH)
+
+        return extract_json
+
+    def __storage(self, article):
+
+
         pass
