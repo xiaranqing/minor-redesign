@@ -51,4 +51,9 @@ class MongoDBHelper(object):
         return False
 
 
-local_mongodb = MongoDBHelper(host="127.0.0.1", user="writer", password="pwdwriter")
+local_mongodb = MongoDBHelper(host="127.0.0.1", user="mongo-admin", password="mongo-password", db="monitor")
+
+if __name__ == '__main__':
+    # 测试mongo 插入
+    with local_mongodb as condb:
+        condb['test'].insert({})

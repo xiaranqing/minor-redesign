@@ -15,6 +15,30 @@ content:text
 title：text
 ```
 
+# 数据
+分两张表，一张表article 只存储原生的文章，原生的标签
+```json
+
+{
+  "articleId":"articeld",
+  "title":"title",
+  "content":"content",
+  "tags":["a","b"]
+}
+
+```
+一张表为user 
+```
+{
+    "userId":"userId"
+    "articleId":"articleId", # 这里的articleId对应着article表中的articleId
+    "title":"title",  # 这里的title不一定是原来的title,因为用户会改
+    "content":"content", # 用户会改
+    "tags":"", # 用户会改
+    "weight":"" # 重要性
+}
+```
+
 # 辅助编选
 - 需要编辑的
   - 标签编辑
