@@ -16,10 +16,10 @@ def get_client_ip(request):
 
 
 def json_response(code, message, params={}, encoding='utf-8'):
-    response = dict(code=int(code), message=message)
+    res = dict(code=int(code), message=message)
     for key in params:
-        response[key] = params[key]
-    return response
+        res[key] = params[key]
+    return res
 
 
 class ApiErrorCode(IntEnum):

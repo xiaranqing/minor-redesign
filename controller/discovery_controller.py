@@ -5,7 +5,11 @@
 from flasgger import Swagger
 from flask import jsonify, app, Blueprint
 
-from model.param import json_response
+import os
+import config
+os.sys.path.append(config.ROOT_PATH)
+
+from model import param
 from service.discovery_service import DiscoveryService
 
 discovery_route = Blueprint('discovery', __name__,
@@ -32,5 +36,5 @@ def discovery_home():
 
     article_list = DiscoveryService.get_article_list()
 
-    json_response("", "", article_list)
+    param.json_response("", "", article_list)
 

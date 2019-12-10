@@ -1,5 +1,4 @@
 from model.article import Article
-from model.param import json_response
 
 
 class DiscoveryService(object):
