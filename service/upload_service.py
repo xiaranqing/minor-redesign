@@ -1,12 +1,18 @@
 # coding:utf-8
 from urllib.parse import urlparse
+from lxml import etree
 
-from pip._vendor import requests
-
+import requests
 from model.article import Article
 
 
 class ArticleUpload(object):
+    request_headers = {
+        "Accept-Language": "en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    }
+
     url = ""
 
     WEIXIN = 0
@@ -38,9 +44,8 @@ class WeiXinArticleUpload(ArticleUpload):
 
 
 class ToutiaoArticleUpload(ArticleUpload):
-    TITLE_XPATH = ""
-    AUTHOR_XPATH = ""
-    CONTENT_XPATH = ""
+    TOUTIAO_XPATH = {"article_body_path": "//div[@id='article-main']",
+                     "article_title_path": ".//h1[@class='article-title']/text()"}
 
     def __init__(self, article_url, article_content=None):
         self.article_url = article_url
@@ -63,18 +68,27 @@ class ToutiaoArticleUpload(ArticleUpload):
     def __crawler(self):
         # todo: 增加爬虫脚本
         extract_json = dict()
-        res = requests.post(self.article_url)
+        res = requests.post(self.article_url, headers=self.request_headers, verify=False)
 
-        if (res.status != 200):
-            pass
+        if (res.status_code != 200):
+            print(">>>>res error")
+            return ""
 
-        extract_json["title"] = res.content.xpath(self.TITLE_XPATH)
-        extract_json["author"] = res.content.xpath(self.AUTHOR_XPATH)
-        extract_json["content"] = res.content.xpath(self.CONTENT_XPATH)
+        html = res.text
+
+        html_etree = etree.HTML(html)
+        extract_json["title"] = html_etree.xpath(self.TOUTIAO_XPATH["article_title_path"])
+        extract_json["content"] = html_etree.xpath(self.TOUTIAO_XPATH["article_body_text_path"])
 
         return extract_json
 
     def __storage(self, article):
-
-
         pass
+
+
+if __name__ == "__main__":
+    url = u"https://www.toutiao.com/a6769444526911128068/"
+
+    # todo: 头条升级了爬虫，已经抓不到了。
+    a = ArticleUpload.create(url).extract()
+    print(">>>a:", a)
