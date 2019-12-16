@@ -1,3 +1,7 @@
+### git 地址
+- 暂时改为public权限，交接后改为私有
+https://github.com/WayneZeng/minor-redesign.git
+
 ### 项目目录结构
 - controller对应mvc模型的view，对应接口层，开放http接口给前端
 - service实际的业务逻辑
@@ -39,3 +43,6 @@ python app.py
 ```
 http://127.0.0.1:5000/apidocs/
 ```
+
+- 5 进度
+    - 当前定义了接口（controller），可以在apidocs看到接口，接口的逻辑大部分还没有写
