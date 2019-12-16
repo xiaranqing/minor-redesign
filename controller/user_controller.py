@@ -12,41 +12,132 @@ user_route = Blueprint('user', __name__,
 @user_route.route('/user/home/')
 def user_home(user_id):
     """
-        用户信息页面
-        ---
-        tags:
-          - 用户信息页面api
-        parameters:
-          - name: user_id
-            in: query
-            type: String
-            description: 用户Id
-        responses:
-          500:
-            description: Error The language is not awesome!
-          200:
-            description: 返回页面
-            schema:
-              id: 123
-              properties:
-                mesasge:
-                  type: string
-                  description: yyy
-                  default: xxx
-        """
+    用户主页
+    ---
+    tags:
+      - 用户相关接口
+    description:
+        用户注册接口，json格式
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: 用户注册
+          required:
+            - user_id
+          properties:
+            user_id:
+              type: string
+              description: 用户id.
+    responses:
+      200:
+          description: 成功
+      500:
+        description: 有误等
+
+    """
     return "user_home"
 
 
 @user_route.route('/user/setting/')
 def setting():
+    """
+    用户设置
+    ---
+    tags:
+      - 用户相关接口
+    description:
+        用户注册接口，json格式
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: 用户注册
+          required:
+            - user_id
+          properties:
+            user_id:
+              type: string
+              description: 用户id.
+    responses:
+      200:
+          description: 成功
+      500:
+        description: 有误等
+
+    """
     return "setting"
 
 
 @user_route.route('/user/register/')
 def register():
+    """
+    用户注册
+    ---
+    tags:
+      - 用户相关接口
+    description:
+        用户注册接口，json格式
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: 用户注册
+          required:
+            - username
+            - password
+            - phone
+          properties:
+            username:
+              type: string
+              description: 用户名.
+            password:
+              type: string
+              description: 密码.
+            phone:
+              type: string
+              description: phone.
+
+    responses:
+      200:
+          description: 注册成功
+          example: {'code':1,'message':注册成功}
+      500:
+        description: 注册有误，参数有误等
+
+    """
     return "register"
 
 
 @user_route.route('/user/login/')
 def login():
+    """
+    用户登录
+    ---
+    tags:
+      - 用户相关接口
+    description:
+        用户注册接口，json格式
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: 用户注册
+          required:
+            - user_id
+          properties:
+            user_id:
+              type: string
+              description: 用户id.
+    responses:
+      200:
+          description: 成功
+      500:
+        description: 有误等
+
+    """
     return "login"

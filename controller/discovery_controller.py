@@ -19,19 +19,30 @@ discovery_route = Blueprint('discovery', __name__,
 @discovery_route.route('/discovery/home/')
 def discovery_home():
     """
-     发现页面主页请求数据
-        ---
-        tags:
-          - 用户信息页面api
-        parameters:
+    用户设置
+    ---
+    tags:
+      - 用户相关接口
+    description:
+        用户注册接口，json格式
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          id: 用户注册
+          required:
+            - user_id
+          properties:
+            user_id:
+              type: string
+              description: 用户id.
+    responses:
+      200:
+          description: 成功
+      500:
+        description: 有误等
 
-        responses:
-          500:
-            description: Error The language is not awesome!
-          200:
-            description: 返回默认的文章数据
-            schema:
-    :return:
     """
 
     article_list = DiscoveryService.get_article_list()

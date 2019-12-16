@@ -32,7 +32,6 @@ def upload_from_url(url):
           200:
             description: 返回默认的文章数据
             schema:
-    :return:
     """
     article = ArticleUpload.create(url).extract()
     pass
