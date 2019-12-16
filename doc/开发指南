@@ -1,10 +1,32 @@
-### 目录结构
+### 项目目录结构
 - controller对应mvc模型的view，对应接口层，开放http接口给前端
 - service实际的业务逻辑
-- model数据层
+- model数据层（暂时没有严格按照这个数据分层）
+   - dal 数据库交互层
+   - vo 前端数据结构
+   - entity 通用数据结构
+   - dto 传输层数据结构
+- common 公共接口层
+- log 日志
+- doc 文档
+- sql 数据建表语言（暂时考虑用mongo，这个废弃）
+- .gitignore git忽略配置
+- app.py 启动程序
+- config.py 配置
+- requirements.txt 依赖文件
+- deploy.md mongo的用法，暂时还没有应用
+
+### 开发环境
+- python 3.x
+- virtualenv(虚拟环境)
+- pycharm（IDE）
+- pip3（python包管理）
+- Flask (开发框架)
+- swagger(api文档）
+- mongo
 
 ### 启动
-- 1 创建虚拟环境venv，python3.6
+- 1 创建虚拟环境virtualenv，python3.6
 - 2 安装依赖
 ```
 pip3 install -r requirements.txt
