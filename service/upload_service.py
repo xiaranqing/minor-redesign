@@ -4,12 +4,14 @@ from lxml import etree
 
 import requests
 from model.article import Article
+import demjson
+import re
 
 
 class ArticleUpload(object):
     request_headers = {
         "Accept-Language": "en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4",
-        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
     }
 
@@ -68,7 +70,7 @@ class ToutiaoArticleUpload(ArticleUpload):
     def __crawler(self):
         # todo: 增加爬虫脚本
         extract_json = dict()
-        res = requests.post(self.article_url, headers=self.request_headers, verify=False)
+        res = requests.get(self.article_url, headers=self.request_headers, verify=False)
 
         if (res.status_code != 200):
             print(">>>>res error")
@@ -76,11 +78,26 @@ class ToutiaoArticleUpload(ArticleUpload):
 
         html = res.text
 
-        html_etree = etree.HTML(html)
-        extract_json["title"] = html_etree.xpath(self.TOUTIAO_XPATH["article_title_path"])
-        extract_json["content"] = html_etree.xpath(self.TOUTIAO_XPATH["article_body_text_path"])
+        regex_list = {"main": "[\\W\\w]*BASE_DATA\\s?=\\s?({[\\W\\w]*?);</script>"}
+        main_str = self.__extract_by_regex(html, regex_list["main"])
 
+        # 修复返回数据中的JS计算逻辑
+        test_str = main_str.replace('.slice(6, -6)', '').replace(".replace(/<br \/>/ig, '')", '')
+        article_json = demjson.decode(test_str)
+        extract_json = dict()
+        extract_json['title'] = article_json['articleInfo']['title'][6:-6]
+        extract_json['content'] = article_json['articleInfo']['content'][6:-6]
+        extract_json['author'] = article_json['articleInfo']['subInfo']['source']
+        extract_json['time'] = article_json['articleInfo']['subInfo']['time']
         return extract_json
+
+    def __extract_by_regex(self, str, regex):
+        pattern = re.compile(regex)
+        match = pattern.match(str)
+        if match:
+            return match.group(1)
+        else:
+            return ''
 
     def __storage(self, article):
         pass
